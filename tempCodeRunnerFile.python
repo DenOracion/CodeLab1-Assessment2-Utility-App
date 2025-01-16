@@ -1,0 +1,43 @@
+# Vending Machine Program
+# Establishing items inside the vending machine
+items = {
+    'A1' : {'name': "Lay's Classic Chips", 'price': 2, 'stock': 6 },
+    'A2' : {'name': "Lay's Salt and Vinegar Chips", 'price': 2.10, 'stock': 11 },
+    'A3' : {'name': "Doritos Nacho Cheese", 'price': 1.70, 'stock': 14 },
+    'A4' : {'name': "Cheetos Cheddar Jalapeno", 'price': 3, 'stock': 4 },
+    'B1' : {'name': "Dr. Pepper", 'price': 1.50, 'stock': 13 },
+    'B2' : {'name': "Coca-Cola", 'price': 1.25, 'stock': 8 },
+    'B3' : {'name': "Sprite", 'price': 1.25, 'stock': 10 },
+    'B4' : {'name': "Dasani Water", 'price': 1.15, 'stock': 6 },
+    'C1' : {'name': "David's Sunflower Seeds", 'price': 2, 'stock': 15 },
+    'C2' : {'name': "Lifesavers Mint", 'price': 1, 'stock': 5 },
+    'C3' : {'name': "Jack Link's Original Beef Jerky", 'price': 7, 'stock': 9 },
+    'C4' : {'name': "Nature Valley Oats & Honey Granola Bar", 'price': 2, 'stock': 15 },
+} 
+def display_items():
+    """This function shows the items inside the vending machine, their price and their stock"""
+    print("\n| Vending Machine Items |")
+    for code, item in items.items():
+        print(f"{code}: {item['name']}, ${item['price']}, (Stock:{item['stock']})")
+
+def asking_user_to_order():
+    """Asks the user to select an item they want using its code number"""
+    return input("Please enter the code of the item you wish to select: ").upper()
+
+def handling_transaction(price):
+    """Manages user's payment, guaranteeing the user pays the correct amount and returns potential change"""
+    print("The item's costs ${price:.2f}.") #shows how much the user will have to pay for the item they want
+    inserted_amount = 0.0
+    while inserted_amount < price:
+        try:
+            amount = float(input(f"Please insert ${price - inserted_amount:.2f}. Insert amount: "))
+            if amount <= 0:
+                print("Please insert the correct amount.") 
+                continue
+            inserted_amount += amount
+        except ValueError: #activates if a user inputs an unaccepted input (ex: xyz)
+            print("Please insert a valid numerical amount.") 
+
+    change = inserted_amount - price
+    print("Transaction completed. The change returned is ${change:.2f}.")
+    return change #lines 41-43 calculate the change needed and returns it to the user.
